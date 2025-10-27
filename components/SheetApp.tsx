@@ -10,6 +10,7 @@ import { useA11yAnnouncer } from '@/hooks/useA11yAnnouncer';
 import Grid from './Grid';
 import FormulaBar from './FormulaBar';
 import Inspector from './Inspector';
+import ErrorBoundary from './ErrorBoundary';
 
 const COLS = 50; // A-AX
 const ROWS = 100; // 1-100
@@ -279,7 +280,8 @@ export default function SheetApp() {
   }, [state.cells, state.selection.focus]);
 
   return (
-    <div className="flex flex-col h-screen">
+    <ErrorBoundary>
+      <div className="flex flex-col h-screen">
       {/* Toolbar */}
       <div className="bg-white border-b border-gray-300 p-2 flex gap-2 items-center">
         <h1 className="text-lg font-bold mr-4">Spreadsheet-Lite</h1>
@@ -353,6 +355,7 @@ export default function SheetApp() {
           <Inspector activeCell={activeCell} selection={state.selection} />
         </div>
       </div>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
