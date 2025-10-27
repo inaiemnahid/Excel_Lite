@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cell-height: 28px;
+  --header-height: 32px;
+  --formula-bar-height: 40px;
+  --default-col-width: 100px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer utilities {
+  .cell-focus-ring {
+    @apply ring-2 ring-blue-500 ring-inset;
+  }
+  
+  .cell-selected {
+    @apply bg-blue-50 border-blue-300;
+  }
+  
+  .cell-editing {
+    @apply ring-2 ring-blue-600 ring-inset;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Grid container */
+.spreadsheet-grid {
+  position: relative;
+  overflow: auto;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+/* Cell styles */
+.grid-cell {
+  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 4px 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: white;
+  cursor: cell;
+}
+
+.grid-cell:focus {
+  outline: none;
+}
+
+/* Header styles */
+.col-header,
+.row-header {
+  background: #f9fafb;
+  border-right: 1px solid #d1d5db;
+  border-bottom: 1px solid #d1d5db;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.col-header {
+  cursor: col-resize;
+}
+
+/* Formula bar */
+.formula-bar {
+  border-bottom: 1px solid #e5e7eb;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 12px;
+}
+
+.formula-bar input {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+  font-size: 14px;
+}
+
+.formula-bar input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  ring: 2px;
+  ring-color: #3b82f6;
+  ring-opacity: 0.2;
+}
+
+/* Inspector */
+.inspector {
+  border-left: 1px solid #e5e7eb;
+  background: white;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+/* Live region for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Error states */
+.cell-error {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Fill handle */
+.fill-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #3b82f6;
+  border: 1px solid white;
+  cursor: crosshair;
+  z-index: 10;
+}
+
+.fill-handle:hover {
+  background: #2563eb;
+}
+
+/* Selection overlay */
+.selection-overlay {
+  position: absolute;
+  border: 2px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Resize handle */
+.resize-handle {
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 10;
+}
+
+.resize-handle:hover {
+  background: #3b82f6;
+}
